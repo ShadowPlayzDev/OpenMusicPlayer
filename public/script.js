@@ -1,7 +1,7 @@
 // script.js
 
 // Import data from config.js
-import { musicData, albumData } from 'config.js';
+import { musicData, albumData } from '/config.js';
 
 const mainView = document.getElementById('main-view');
 const browseView = document.getElementById('browse-view');
