@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Music Library</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <button class="hamburger-menu" id="hamburger-menu">&#9776;</button>
+    <div class="container">
+      <aside class="sidebar" id="sidebar">
+        <div class="logo">My Music</div>
+        <nav>
+          <ul>
+            <li><a href="#browse">Browse</a></li>
+            <li><a href="#playlists">Playlists</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content" id="main-view">
+        <section id="browse-view">
+          <h2>Browse</h2>
+          <ul id="track-list"></ul>
+        </section>
+
+        <section id="playlists-view" style="display: none">
+          <h2>Playlists</h2>
+          <ul id="playlist-list"></ul>
+        </section>
+
+        <section id="song-detail-view" style="display: none"></section>
+      </main>
+
+      <footer class="player">
+        <div class="track-info">
+          <img
+            id="player-album-art"
+            src="placeholder-album.png"
+            alt="Album Art"
+            style="width: 40px; height: 40px; margin-right: 10px"
+          />
+          <div class="track-details">
+            <h3 id="player-track-title" style="font-size: 1em; margin: 0">
+              No Track
+            </h3>
+            <p id="player-artist-name" style="font-size: 0.8em; margin: 0">
+              --
+            </p>
+          </div>
+        </div>
+        <div class="controls">
+          <audio id="audio-player" controls style="width: 300px"></audio>
+        </div>
+      </footer>
+    </div>
+
+    <script src=cdn/script.js></script>
+  </body>
+</html>
