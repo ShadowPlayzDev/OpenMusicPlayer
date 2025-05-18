@@ -1,4 +1,4 @@
-/* style.css */
+/* styles.css */
 
 /* Modern Theme */
 
@@ -175,33 +175,57 @@ a:hover {
     font-size: 0.9em;
 }
 
-/* Song Detail View */
-#song-detail-view {
+/* Track Detail View */
+.track-detail {
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-#song-detail-view h2 {
-    font-size: 3em;
+.track-detail .cover-art {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+}
+
+.track-detail h2 {
+    font-size: 2.8em;
     font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.track-detail .artist {
+    font-size: 1.2em;
+    color: #a7a7a7;
+    margin-bottom: 5px;
+}
+
+.track-detail .album {
+    font-size: 1.1em;
+    color: #a7a7a7;
     margin-bottom: 15px;
 }
 
-#song-detail-view p {
-    font-size: 1.1em;
+.track-detail .album a {
+    color: #1db954;
+}
+
+.track-detail .album a:hover {
+    color: #1ed760;
+}
+
+.track-detail .description {
+    font-size: 1em;
     line-height: 1.7;
-    margin-bottom: 20px;
     color: #e0e0e0;
+    margin-bottom: 25px;
 }
 
-#song-detail-view img {
-    max-width: 350px;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-#song-detail-view button {
+.track-detail button {
     background-color: #1db954;
     color: #fff;
     border: none;
@@ -213,8 +237,76 @@ a:hover {
     transition: background-color 0.2s ease-in-out;
 }
 
-#song-detail-view button:hover {
+.track-detail button:hover {
     background-color: #1ed760;
+}
+
+.track-detail a {
+    color: #a7a7a7;
+    text-decoration: none;
+}
+
+.track-detail a:hover {
+    color: #fff;
+}
+
+/* Album Detail View */
+.album-detail {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.album-detail .cover-art.large {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
+}
+
+.album-detail h2 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.album-detail .description {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+}
+
+.album-detail h3 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.album-detail ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.album-detail ul li a {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #2c2c2c;
+    color: #fff;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.album-detail ul li:last-child a {
+    border-bottom: none;
+}
+
+.album-detail ul li a:hover {
+    background-color: #1e1e1e;
+    color: #1db954;
 }
 
 /* Player Styles */
@@ -307,12 +399,12 @@ a:hover {
 
 .sidebar nav ul li:nth-child(1) a::before {
     /* Example: Home icon */
-    /* background-image: url('path/to/home-icon.svg'); */
+    /* background-image: url('images/home-icon.svg'); */
 }
 
 .sidebar nav ul li:nth-child(2) a::before {
     /* Example: Playlists icon */
-    /* background-image: url('path/to/playlists-icon.svg'); */
+    /* background-image: url('images/playlists-icon.svg'); */
 }
 
 /* Media Queries for Responsiveness */
@@ -412,6 +504,23 @@ a:hover {
         padding: 10px 25px;
         font-size: 1em;
         margin-right: 10px;
+    }
+
+    .album-detail .cover-art.large {
+        width: 200px;
+        height: 200px;
+    }
+
+    .album-detail h2 {
+        font-size: 2.2em;
+    }
+
+    .album-detail h3 {
+        font-size: 1.5em;
+    }
+
+    .album-detail ul li a {
+        font-size: 0.95em;
     }
 }
 
