@@ -24,8 +24,8 @@ function loadView(viewId) {
     document.getElementById(viewId).classList.remove('hidden');
 }
 
-function playTrack(track) {
-    const currentTrack = musicData.find(t => t.id === track.id);
+function playTrack(trackId) {
+    const currentTrack = musicData.find(t => t.id === trackId);
     if (currentTrack) {
         audioPlayer.src = currentTrack.src;
         playerTrackTitle.textContent = currentTrack.title;
@@ -44,6 +44,13 @@ function displayLibrary() {
         link.textContent = `${song.title} - ${song.artist}`;
         link.classList.add('block', 'hover:text-white');
         listItem.appendChild(link);
+
+        const playButton = document.createElement('button');
+        playButton.innerHTML = '<i class="material-icons ml-2 align-middle">play_arrow</i>';
+        playButton.classList.add('text-gray-400', 'hover:text-green-500', 'focus:outline-none', 'align-middle');
+        playButton.addEventListener('click', () => playTrack(song.id));
+
+        listItem.appendChild(playButton);
         trackListContainer.appendChild(listItem);
     });
 }
@@ -57,7 +64,7 @@ function loadTrackDetails(trackId) {
                 <h2 class="text-3xl font-bold mb-2">${song.title}</h2>
                 <p class="artist text-gray-400 text-lg mb-1">Artist: ${song.artist}</p>
                 <p class="album text-gray-400 text-lg mb-4">Album: <a href="#album/${song.albumId}" class="text-green-500 hover:underline">${song.album}</a></p>
-                <button onclick="playTrack(musicData.find(s => s.id === '${trackId}'))" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full">Play</button>
+                <button onclick="playTrack('${trackId}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full">Play</button>
                 <p class="mt-4"><a href="#browse" class="text-gray-400 hover:text-white">Back to Browse</a></p>
             </div>
         `;
