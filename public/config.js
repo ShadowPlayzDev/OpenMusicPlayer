@@ -1,13 +1,13 @@
 // config.js
 
-const albumData = [
+export const albumData = [
     { id: 'f9e8d7c6-b5a4-4321-fedc-ba9876543210', name: 'Album X', coverArt: 'images/albumx_large.jpg', description: 'The iconic Album X.' },
     { id: '0fedcba9-8765-4321-0fed-cba987654321', name: 'The Album', coverArt: 'images/thealbum_large.png', description: 'Band B\'s breakthrough album.' },
     { id: 'a1a2b3b4-c5c6-4d4d-e7e8-f9f0a1a2b3b4', name: 'Hamilton (Original Broadway Cast Recording)', artist: 'Lin-Manuel Miranda', releaseYear: '2015', coverArt: 'images/hamilton_large.jpg', description: 'The official soundtrack to the groundbreaking Broadway musical.' },
     // Add more albums with unique UUIDs
 ];
 
-const musicData = [
+export const musicData = [
     { id: 'a1b2c3d4-e5f6-4789-9012-34567890abcd', albumId: 'f9e8d7c6-b5a4-4321-fedc-ba9876543210', title: 'Song 1', artist: 'Artist A', album: 'Album X', src: 'music/song1.mp3', albumArt: 'images/albumx.jpg' },
     { id: '12345678-9abc-4def-5678-90abcdef12345', albumId: '0fedcba9-8765-4321-0fed-cba987654321', title: 'Another Song', artist: 'Band B', album: 'The Album', src: 'music/another_song.mp3', albumArt: 'images/thealbum.png' },
     // Hamilton Act I
