@@ -4,60 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Music Library</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-black text-gray-300 font-sans">
-    <button id="hamburger-menu" class="hamburger-menu fixed top-4 left-4 text-white text-2xl z-30 md:hidden">
+<body class="bg-gray-100 text-gray-900 font-sans">
+    <button id="hamburger-menu" class="hamburger-menu fixed top-4 left-4 text-gray-900 text-2xl z-30 md:hidden">
         <i class="material-icons">menu</i>
     </button>
     <div class="container flex">
-        <aside id="sidebar" class="bg-black w-64 flex-shrink-0 p-6 fixed top-0 left-0 h-full z-20 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:border-r md:border-gray-800">
-            <div class="logo text-white mb-8">My Music</div>
+        <aside id="sidebar" class="bg-gray-200 w-64 flex-shrink-0 p-6 fixed top-0 left-0 h-full z-20 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:border-r md:border-gray-300">
+            <div class="logo text-gray-900 mb-8">My Music</div>
             <nav>
                 <ul class="space-y-2">
-                    <li><a href="#browse" class="block hover:text-white"><i class="material-icons mr-2">library_music</i>Browse</a></li>
-                    <li><a href="#playlists" class="block hover:text-white"><i class="material-icons mr-2">playlist_play</i>Playlists</a></li>
+                    <li><a href="#browse" class="block hover:text-gray-700"><i class="material-icons mr-2">library_music</i>Browse</a></li>
+                    <li><a href="#playlists" class="block hover:text-gray-700"><i class="material-icons mr-2">playlist_play</i>Playlists</a></li>
                 </ul>
             </nav>
         </aside>
 
-        <main id="main-view" class="flex-grow p-6 md:pl-64 transition-padding duration-300 ease-in-out">
+        <main id="main-view" class="flex-grow p-6 md:pl-64 transition-padding duration-300 ease-in-out bg-gray-100">
             <section id="browse-view">
-                <h2 class="text-white text-2xl font-bold mb-4">Browse</h2>
+                <h2 class="text-gray-900 text-2xl font-bold mb-4">Browse</h2>
                 <ul id="track-list" class="space-y-2">
                     </ul>
             </section>
 
-            <section id="playlists-view" class="hidden">
-                <h2 class="text-white text-2xl font-bold mb-4">Playlists</h2>
+            <section id="playlists-view" class="hidden bg-gray-100">
+                <h2 class="text-gray-900 text-2xl font-bold mb-4">Playlists</h2>
                 <ul id="playlist-list" class="space-y-2">
                     </ul>
             </section>
 
-            <section id="track-detail-view" class="hidden">
+            <section id="track-detail-view" class="hidden bg-gray-100">
             </section>
 
-            <section id="album-detail-view" class="hidden">
+            <section id="album-detail-view" class="hidden bg-gray-100">
             </section>
         </main>
 
-        <footer class="player bg-gray-900 text-white fixed bottom-0 left-0 w-full p-4 flex items-center justify-between z-10 border-t border-gray-800">
+        <footer class="player bg-gray-200 text-gray-900 fixed bottom-0 left-0 w-full p-4 flex items-center justify-between z-10 border-t border-gray-300">
             <div class="track-info flex items-center">
                 <img id="player-album-art" src="images/placeholder-album.png" alt="Album Art" class="w-10 h-10 rounded mr-4 object-cover">
                 <div class="track-details">
-                    <h3 id="player-track-title" class="text-sm font-semibold">No Track</h3>
-                    <p id="player-artist-name" class="text-xs text-gray-400">--</p>
+                    <h3 id="player-track-title" class="text-sm font-semibold text-gray-900">No Track</h3>
+                    <p id="player-artist-name" class="text-xs text-gray-700">--</p>
                 </div>
             </div>
             <div class="controls flex items-center">
-                <button class="text-white hover:text-green-500 focus:outline-none">
+                <button class="text-gray-900 hover:text-green-500 focus:outline-none">
                     <i class="material-icons">skip_previous</i>
                 </button>
-                <button class="text-white hover:text-green-500 focus:outline-none">
+                <button class="text-gray-900 hover:text-green-500 focus:outline-none">
                     <i class="material-icons">play_arrow</i>
                 </button>
-                <button class="text-white hover:text-green-500 focus:outline-none">
+                <button class="text-gray-900 hover:text-green-500 focus:outline-none">
                     <i class="material-icons">skip_next</i>
                 </button>
                 <audio id="audio-player" controls class="w-64"></audio>
