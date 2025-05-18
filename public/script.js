@@ -1,120 +1,146 @@
-      const mainView = document.getElementById("main-view")
-      const browseView = document.getElementById("browse-view")
-      const playlistsView = document.getElementById("playlists-view")
-      const songDetailView = document.getElementById("song-detail-view")
-      const trackListContainer = document.getElementById("track-list")
-      const audioPlayer = document.getElementById("audio-player")
-      const playerTrackTitle = document.getElementById("player-track-title")
-      const playerArtistName = document.getElementById("player-artist-name")
-      const playerAlbumArt = document.getElementById("player-album-art")
-      const hamburgerMenu = document.getElementById("hamburger-menu")
-      const sidebar = document.getElementById("sidebar")
+// script.js
 
-      let currentTrack = null
-      let musicData = [
-        {
-          id: "1",
-          title: "Song 1",
-          artist: "Artist A",
-          album: "Album X",
-          src: "music/song1.mp3",
-          albumArt: "album-art/albumx.jpg",
-          detailsPage: "song1.html",
-        },
-        {
-          id: "2",
-          title: "Another Song",
-          artist: "Band B",
-          album: "The Album",
-          src: "music/another_song.mp3",
-          albumArt: "album-art/thealbum.png",
-          detailsPage: "song2.html",
-        },
-        // ... more songs
-      ]
+// Import data from config.js
+import { musicData, albumData } from 'config.js';
 
-      function loadView(viewId) {
-        browseView.style.display = "none"
-        playlistsView.style.display = "none"
-        songDetailView.style.display = "none"
-        document.getElementById(viewId).style.display = "block"
-      }
+const mainView = document.getElementById('main-view');
+const browseView = document.getElementById('browse-view');
+const playlistsView = document.getElementById('playlists-view');
+const trackDetailView = document.getElementById('track-detail-view');
+const albumDetailView = document.getElementById('album-detail-view');
+const trackListContainer = document.getElementById('track-list');
+const audioPlayer = document.getElementById('audio-player');
+const playerTrackTitle = document.getElementById('player-track-title');
+const playerArtistName = document.getElementById('player-artist-name');
+const playerAlbumArt = document.getElementById('player-album-art');
+const hamburgerMenu = document.getElementById('hamburger-menu');
+const sidebar = document.getElementById('sidebar');
 
-      function playTrack(track) {
-        currentTrack = track
-        audioPlayer.src = track.src
-        playerTrackTitle.textContent = track.title
-        playerArtistName.textContent = track.artist
-        playerAlbumArt.src = track.albumArt
-        audioPlayer.play()
-      }
+function loadView(viewId) {
+    browseView.classList.add('hidden');
+    playlistsView.classList.add('hidden');
+    trackDetailView.classList.add('hidden');
+    albumDetailView.classList.add('hidden');
+    document.getElementById(viewId).classList.remove('hidden');
+}
 
-      function displayLibrary() {
-        trackListContainer.innerHTML = ""
-        musicData.forEach((song) => {
-          const listItem = document.createElement("li")
-          const link = document.createElement("a")
-          link.href = `#song/${song.id}` // Use a hash-based routing approach
-          link.textContent = `${song.title} - ${song.artist}`
-          listItem.appendChild(link)
-          trackListContainer.appendChild(listItem)
-        })
-      }
+function playTrack(track) {
+    const currentTrack = musicData.find(t => t.id === track.id);
+    if (currentTrack) {
+        audioPlayer.src = currentTrack.src;
+        playerTrackTitle.textContent = currentTrack.title;
+        playerArtistName.textContent = currentTrack.artist;
+        playerAlbumArt.src = currentTrack.albumArt;
+        audioPlayer.play();
+    }
+}
 
-      function loadSongDetails(songId) {
-        const song = musicData.find((s) => s.id === songId)
-        if (song) {
-          songDetailView.innerHTML = `
-                    <h2>${song.title}</h2>
-                    <p>Artist: ${song.artist}</p>
-                    <img src="${song.albumArt}" alt="${song.album}" style="width: 200px;">
-                    <button onclick="playTrack(musicData.find(s => s.id === '${songId}'))">Play</button>
-                    <p><a href="#browse">Back to Browse</a></p>
-                `
-          loadView("song-detail-view")
-        } else {
-          songDetailView.innerHTML = "<p>Song not found.</p>"
-          loadView("song-detail-view")
+function displayLibrary() {
+    trackListContainer.innerHTML = '';
+    musicData.forEach(song => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#track/${song.id}`; // Link to the song's detail page using UUID
+        link.textContent = `${song.title} - ${song.artist}`;
+        link.classList.add('block', 'hover:text-white');
+        listItem.appendChild(link);
+        trackListContainer.appendChild(listItem);
+    });
+}
+
+function loadTrackDetails(trackId) {
+    const song = musicData.find(s => s.id === trackId);
+    if (song) {
+        trackDetailView.innerHTML = `
+            <div class="track-detail text-white">
+                <img src="${song.albumArt}" alt="${song.album}" class="cover-art w-48 h-48 rounded shadow-md mb-4 object-cover">
+                <h2 class="text-3xl font-bold mb-2">${song.title}</h2>
+                <p class="artist text-gray-400 text-lg mb-1">Artist: ${song.artist}</p>
+                <p class="album text-gray-400 text-lg mb-4">Album: <a href="#album/${song.albumId}" class="text-green-500 hover:underline">${song.album}</a></p>
+                <button onclick="playTrack(musicData.find(s => s.id === '${trackId}'))" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full">Play</button>
+                <p class="mt-4"><a href="#browse" class="text-gray-400 hover:text-white">Back to Browse</a></p>
+            </div>
+        `;
+        loadView('track-detail-view');
+    } else {
+        trackDetailView.innerHTML = '<p class="text-white">Track not found.</p>';
+        loadView('track-detail-view');
+    }
+}
+
+function loadAlbumDetails(albumId) {
+    const album = albumData.find(a => a.id === albumId);
+    if (album) {
+        const albumTracks = musicData.filter(song => song.albumId === albumId);
+        let trackListHTML = '<ul class="space-y-2">';
+        albumTracks.forEach(track => {
+            trackListHTML += `<li><a href="#track/${track.id}" class="block hover:text-white">${track.title} - ${track.artist}</a></li>`;
+        });
+        trackListHTML += '</ul>';
+
+        albumDetailView.innerHTML = `
+            <div class="album-detail text-white">
+                <img src="${album.coverArt}" alt="${album.name}" class="cover-art w-64 h-64 rounded shadow-md mb-4 object-cover">
+                <h2 class="text-3xl font-bold mb-2">${album.name}</h2>
+                <p class="text-gray-300 leading-relaxed mb-6">Artist: ${album.artist}</p>
+                <p class="text-gray-300 leading-relaxed mb-6">Release Year: ${album.releaseYear}</p>
+                <h3 class="text-xl font-semibold mb-2">Tracks (${albumTracks.length})</h3>
+                ${trackListHTML}
+                <p class="mt-4"><a href="#browse" class="text-gray-400 hover:text-white">Back to Browse</a></p>
+            </div>
+        `;
+        loadView('album-detail-view');
+    } else {
+        albumDetailView.innerHTML = '<p class="text-white">Album not found.</p>';
+        loadView('album-detail-view');
+    }
+}
+
+window.addEventListener('hashchange', () => {
+    const hash = window.location.hash;
+    if (hash === '#browse') {
+        loadView('browse-view');
+    } else if (hash === '#playlists') {
+        loadView('playlists-view');
+    } else if (hash.startsWith('#track/')) {
+        const trackId = hash.substring(7);
+        loadTrackDetails(trackId);
+    } else if (hash.startsWith('#album/')) {
+        const albumId = hash.substring(7);
+        loadAlbumDetails(albumId);
+    } else {
+        loadView('browse-view'); // Default view
+    }
+});
+
+hamburgerMenu.addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-full');
+    mainView.classList.toggle('md:pl-64');
+    mainView.classList.toggle('pl-0');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    displayLibrary();
+    loadView('browse-view'); // Initial view
+
+    // Check screen width on load and initially hide sidebar if needed (Tailwind handles this with md:translate-x-0)
+    if (window.innerWidth < 768) {
+        mainView.classList.remove('md:pl-64');
+        mainView.classList.add('pl-0');
+    }
+});
+
+window.addEventListener('resize', () => {
+    // Adjust sidebar state on resize (Tailwind handles the default open state on md screens)
+    if (window.innerWidth >= 768) {
+        sidebar.classList.remove('-translate-x-full');
+        mainView.classList.add('md:pl-64');
+        mainView.classList.remove('pl-0');
+    } else {
+        mainView.classList.remove('md:pl-64');
+        mainView.classList.add('pl-0');
+        if (!sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.add('-translate-x-full');
         }
-      }
-
-      window.addEventListener("hashchange", () => {
-        const hash = window.location.hash
-        if (hash === "#browse") {
-          loadView("browse-view")
-        } else if (hash === "#playlists") {
-          loadView("playlists-view")
-        } else if (hash.startsWith("#song/")) {
-          const songId = hash.substring(6)
-          loadSongDetails(songId)
-        } else {
-          loadView("browse-view") // Default view
-        }
-      })
-
-      hamburgerMenu.addEventListener("click", () => {
-        sidebar.classList.toggle("open")
-        mainView.classList.toggle("sidebar-open")
-      })
-
-      document.addEventListener("DOMContentLoaded", () => {
-        displayLibrary()
-        loadView("browse-view") // Initial view
-
-        // Check screen width on load and initially hide sidebar if needed
-        if (window.innerWidth < 768) {
-          sidebar.classList.remove("open")
-          mainView.classList.remove("sidebar-open")
-        }
-      })
-
-      window.addEventListener("resize", () => {
-        // Adjust sidebar state on resize
-        if (window.innerWidth >= 768) {
-          sidebar.classList.add("open")
-          mainView.classList.add("sidebar-open")
-        } else {
-          sidebar.classList.remove("open")
-          mainView.classList.remove("sidebar-open")
-        }
-      })
+    }
+});
